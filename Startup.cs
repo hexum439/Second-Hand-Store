@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SecondHand.Data;
+using SecondHand.Data.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,8 +29,11 @@ namespace SecondHand
             //DbContext configuration
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DeafaultConnectionString")));
 
-
-            services.AddControllersWithViews();
+            services.AddScoped<IKategorijeService, KategorijeService>();
+			services.AddScoped<IKategorijeObutevService, KategorijeObutevService>();
+            services.AddScoped<IZenskaOblacilaService, ZenskaOblacilaService>();
+			services.AddScoped<IZenskaObutevService, ZenskaObutevService>();
+			services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
